@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>blessingHero</title>
+    <link rel="shortcut icon" href="" />
+    <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+  </head>
+  <body>
+    <title>Hello</title>
+  </body>
+  <script>
+    var liffID = "1657649804-Jb10W9yA";
+    liff
+      .init({
+        liffId: liffID,
+      })
+      .then(function () {
+        console.log("LIFF init");
+        if (!liff.isLoggedIn()) {
+          liff.login({
+            redirectUri: "http://127.0.0.1:5500/index.html",
+          });
+        }
+
+        // 這邊開始寫使用其他功能
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  </script>
+</html>
