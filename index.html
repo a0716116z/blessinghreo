@@ -55,7 +55,7 @@
       </div>
     </div>
     <h2>Test</h2>
-    <div id="result-info"></div>
+    <div id="result-info">user data</div>
   </body>
   <script>
     var liffID = "1657649804-Jb10W9yA";
@@ -73,7 +73,7 @@
           liff.getProfile().then((profile) => {
             const outputContent = document.getElementById("result-info");
             console.log(profile);
-            outputContent.value = `${JSON.stringify(profile)}`;
+            outputContent.innerHTML = `${JSON.stringify(profile)}`;
           });
         }
         function getProfile() {
