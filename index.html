@@ -7,6 +7,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>惜福超人</title>
     <link rel="shortcut icon" href="" />
+    <script
+      src="https://code.jquery.com/jquery-3.6.1.min.js"
+      integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ="
+      crossorigin="anonymous"
+    ></script>
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
@@ -54,11 +59,77 @@
         </div>
       </div>
     </div>
-    <h2>Test</h2>
+    <!-- <h2>Test</h2> -->
     <div id="result-info">user data</div>
+    <div id="google-sheet">content</div>
+    <!-- <div class="blessing-food">
+      <div class="blessing-food-item">
+        <div class="food-description">
+          <div class="food-name">紅豆麵包</div>
+          <div class="food-price">$18</div>
+          <div class="food-num">3個</div>
+        </div>
+
+        <div class="scroll-bar">
+          <div class="choose-info">惜福數量</div>
+          <div class="choose-group">
+            <div class="choose-num">3</div>
+            <button class="minus"><i class="fa-solid fa-minus"></i></button>
+            <button class="plus"><i class="fa-solid fa-plus"></i></button>
+          </div>
+        </div>
+      </div>
+      <div class="blessing-food-item">
+        <div class="food-description">
+          <div class="food-name">紅豆麵包</div>
+          <div class="food-price">$18</div>
+          <div class="food-num">3個</div>
+        </div>
+
+        <div class="scroll-bar">
+          <div class="choose-info">惜福數量</div>
+          <div class="choose-group">
+            <div class="choose-num">0</div>
+            <button class="minus"><i class="fa-solid fa-minus"></i></button>
+            <button class="plus"><i class="fa-solid fa-plus"></i></button>
+          </div>
+        </div>
+      </div>
+    </div> -->
   </body>
   <script>
-    var liffID = "1657649804-Jb10W9yA";
+    const liffID = "1657649804-Jb10W9yA";
+    let spreadsheet_id = "1VTxk0-JwB0-IhBxptYZAJzmyLoFkldS6aRkzwWl6EG8",
+      tab_name = "store", // 填入工作表名稱
+      api_key = "AIzaSyA7yPxnllRcUxcMrfAfIFvYFamYw7Y3iUQ", // 填入 API 金鑰
+      url =
+        "https://sheets.googleapis.com/v4/spreadsheets/" +
+        spreadsheet_id +
+        "/values/" +
+        tab_name +
+        "?key=" +
+        api_key;
+    $.getJSON(url, function (json) {
+      let values = json.values, // 所有試算表資料
+        html = "";
+      const [, ...rest] = values;
+      console.log(rest);
+      rest.forEach(function (rows) {
+        html += '<div class="blessing-food-item">';
+        html += '<div class="food-description">';
+        html += '<div class="food-name">' + rows[0] + "</div>";
+        html += '<div class="food-price">$' + rows[2] + "</div>";
+        html += '<div class="food-num">' + rows[1] + "個</div>";
+        html += "</div>";
+
+        html +=
+          '<div class="scroll-bar"><div class="choose-info">惜福數量</div><div class="choose-group"><div class="choose-num">3</div><button class="minus"><i class="fa-solid fa-minus"></i></button><button class="plus"><i class="fa-solid fa-plus"></i></button></div></div>';
+
+        html += "</div>";
+      });
+      html += "</div>";
+      $("#google-sheet").html(html);
+    });
     liff
       .init({
         liffId: liffID,
