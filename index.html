@@ -10,6 +10,9 @@
   </head>
   <body>
     <title>Hello</title>
+    <h2>Hello</h2>
+    <h2>Test</h2>
+    <div id="result-info"></div>
   </body>
   <script>
     var liffID = "1657649804-Jb10W9yA";
@@ -23,8 +26,18 @@
           liff.login({
             redirectUri: "https://a0716116z.github.io/blessinghreo/index.html",
           });
+        } else {
+          liff.getProfile().then((profile) => {
+            const outputContent = document.getElementById("result-info");
+            outputContent.value = `${JSON.stringify(profile)}`;
+          });
         }
-
+        function getProfile() {
+          // 先確認使用者是登入狀態
+          if (isLoggedIn) {
+            return liff.getProfile().then((profile) => profile);
+          }
+        }
         // 這邊開始寫使用其他功能
       })
       .catch(function (error) {
