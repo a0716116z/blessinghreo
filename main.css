@@ -1,0 +1,74 @@
+*{
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+.title{
+ width: 100%;
+}
+.title-name{
+  text-align: center;
+  color: #5F793A;
+  font-size: 1.5rem;
+  padding: 5px;
+  /* background: #5F793A;
+  color: #fff; */
+}
+.menu{
+  /* width: 90%; */
+  width: 100%;
+  padding: 5px 10% 5px 10%;
+  margin: auto;
+  background: #5F793A;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.menuitem{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.menu-title ,.menuitem .icon{
+  font-size: 1.4rem;
+}
+.shop-card{
+  width: 100%;
+  padding: 5px 10% 5px 10%;
+  display: flex;
+}
+.shop-icon{
+  width: 30%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+.shop-icon i{
+  font-size: 6rem;
+  color: rgb(242, 152, 34);
+}
+.shop-info-bar{
+  width: 70%;
+}
+.shop-name{
+  margin: 5px;
+  font-size: 1.6rem;
+}
+.shop-info{
+   margin: 5px;
+   font-size: 1.2em;
+}
+.rank{
+  display: flex;
+  align-items: center;
+}
+.rank i{
+  font-size: 1.6rem;
+  color: rgb(255, 200, 0);
+}
+.rank i ,.rank .rank-info{
+  padding: 5px;
+}

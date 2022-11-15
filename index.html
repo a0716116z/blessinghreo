@@ -1,16 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <link rel="stylesheet" href="./main.css" />
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>blessingHero</title>
+    <title>惜福超人</title>
     <link rel="shortcut icon" href="" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+    />
     <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
   </head>
   <body>
-    <title>Hello</title>
-    <h2>Hello</h2>
+    <div class="title">
+      <div class="title-name">惜福超人出任務</div>
+      <div class="menu">
+        <div class="menuitem">
+          <div class="icon">
+            <i class="fa-solid fa-gifts"></i>
+          </div>
+          <div class="menu-title">怎取餐</div>
+        </div>
+        <div class="menuitem">
+          <div class="icon">
+            <i class="fa-solid fa-magnifying-glass"></i>
+          </div>
+          <div class="menu-title">找商品</div>
+        </div>
+        <div class="menuitem">
+          <div class="icon">
+            <i class="fa-solid fa-bag-shopping"></i>
+          </div>
+          <div class="menu-title">購物車</div>
+        </div>
+      </div>
+    </div>
+    <div class="shop-card">
+      <div class="shop-icon">
+        <i class="fa-solid fa-bread-slice"></i>
+      </div>
+      <div class="shop-info-bar">
+        <div class="shop-name">小舞台烘焙</div>
+        <div class="shop-info">店家資訊</div>
+        <div class="rank">
+          <i class="fa-solid fa-star"></i>
+          <i class="fa-solid fa-star"></i>
+          <i class="fa-solid fa-star"></i>
+          <i class="fa-solid fa-star"></i>
+          <i class="fa-regular fa-star"></i>
+          <div class="rank-info">4.8(112)</div>
+        </div>
+      </div>
+    </div>
     <h2>Test</h2>
     <div id="result-info"></div>
   </body>
@@ -29,6 +72,7 @@
         } else {
           liff.getProfile().then((profile) => {
             const outputContent = document.getElementById("result-info");
+            console.log(profile);
             outputContent.value = `${JSON.stringify(profile)}`;
           });
         }
