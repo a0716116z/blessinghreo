@@ -232,13 +232,15 @@
       });
     }
 
-    function sendMsg(msg) {
-      data = liff.getProfile().then((profile) => {
-        return JSON.stringify(profile);
-      });
-      console.log(data);
-
-      msg = data.displayName + msg + "";
+    async function sendMsg(msg) {
+      // data = liff.getProfile().then((profile) => {
+      //   return JSON.stringify(profile);
+      // });
+      // console.log(data);
+      const profile = await liff.getProfile();
+      const name = profile.displayName;
+      console.log(name);
+      msg = name + msg + "";
       liff
         .sendMessages([
           {
