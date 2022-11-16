@@ -9,8 +9,9 @@
 .title-name{
   text-align: center;
   color: #5F793A;
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   padding: 5px;
+  font-size: bold;
   /* background: #5F793A;
   color: #fff; */
 }
@@ -47,18 +48,19 @@
   padding: 20px;
 }
 .shop-icon i{
-  font-size: 6rem;
+  font-size: 5rem;
   color: rgb(242, 152, 34);
 }
 .shop-info-bar{
   width: 70%;
 }
 .shop-name{
-  margin: 5px;
-  font-size: 1.6rem;
+  margin: 3px;
+  font-size: 1.4rem;
+  font-weight: bold;
 }
 .shop-info{
-   margin: 5px;
+   margin: 3px;
    font-size: 1.2em;
 }
 .rank{
@@ -66,11 +68,11 @@
   align-items: center;
 }
 .rank i{
-  font-size: 1.4rem;
+  font-size: 1.25rem;
   color: rgb(255, 200, 0);
 }
 .rank i ,.rank .rank-info{
-  padding: 5px;
+  padding: 3px;
 }
 .blessing-food-item{
   background: #F5F5F5;
@@ -117,7 +119,9 @@
 .scroll-bar .plus,.scroll-bar .minus{
   float: right;
   border: none;
-  font-size: 1.25rem;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
   background: #fff;
   padding: 4px;
   color: #5F793A;

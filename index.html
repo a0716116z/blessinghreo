@@ -60,8 +60,8 @@
       </div>
     </div>
     <!-- <h2>Test</h2> -->
-    <div id="result-info">user data</div>
-    <div id="google-sheet">content</div>
+    <!-- <div id="result-info">user data</div> -->
+    <div id="google-sheet"></div>
     <!-- <div class="blessing-food">
       <div class="blessing-food-item">
         <div class="food-description">
@@ -150,10 +150,10 @@
         html += '<div class="food-description">';
         html += '<div class="food-name">' + rows[0] + "</div>";
         html += '<div class="food-price">$' + rows[2] + "</div>";
-        html += '<div class="food-num">' + rows[1] + "個</div>";
+        html += '<div class="food-num">剩餘' + rows[1] + "個</div>";
         html += "</div>";
 
-        html += `<div class="scroll-bar"><div class="choose-info" >惜福數量</div><div class="choose-group"><div class="choose-num">0</div><button onclick="updateStatus('${index}' ,'${rows[0]}','${rows[2]}')" class="minus"><i class="fa-solid fa-plus"></i>訂購</i></button></div></div>`;
+        html += `<div class="scroll-bar"><div class="choose-info" >惜福訂購</div><div class="choose-group"><button onclick="updateStatus('${index}' ,'${rows[0]}','${rows[2]}')" class="minus"><i class="fa-solid fa-plus"></i>訂購</button></div></div>`;
 
         //       html +=
         // '<div class="scroll-bar"><div class="choose-info" value="' +
@@ -268,9 +268,7 @@
           });
         } else {
           liff.getProfile().then((profile) => {
-            const outputContent = document.getElementById("result-info");
             console.log(profile);
-            outputContent.innerHTML = `${JSON.stringify(profile)}`;
           });
         }
         function getProfile() {
