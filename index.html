@@ -223,7 +223,8 @@
           if (response === "success") {
             console.log("更新成功");
             msg = `您已成功訂購 :'${name}'一份 價格為 '${price}'元`;
-            console.log(msg);
+            alert(msg);
+            sendMsg(msg);
           } else {
             alert("更新失敗！");
           }
