@@ -98,9 +98,6 @@
     </div> -->
   </body>
   <script>
-    window.onload = function () {
-      sendQuery();
-    };
     const liffID = "1657649804-Jb10W9yA";
     let spreadsheet_id = "1VTxk0-JwB0-IhBxptYZAJzmyLoFkldS6aRkzwWl6EG8",
       tab_name = "store", // 填入工作表名稱
@@ -112,141 +109,27 @@
         tab_name +
         "?key=" +
         api_key;
-    // $.getJSON(url, function (json) {
-    //   let values = json.values, // 所有試算表資料
-    //     html = "";
-    //   const [, ...rest] = values;
-    //   console.log(rest);
-    //   rest.forEach(function (rows) {
-    //     html += '<div class="blessing-food-item">';
-    //     html += '<div class="food-description">';
-    //     html += '<div class="food-name">' + rows[0] + "</div>";
-    //     html += '<div class="food-price">$' + rows[2] + "</div>";
-    //     html += '<div class="food-num">' + rows[1] + "個</div>";
-    //     html += "</div>";
-
-    //     html +=
-    //       '<div class="scroll-bar"><div class="choose-info">惜福數量</div><div class="choose-group"><div class="choose-num">0</div><button class="minus"><i class="fa-solid fa-minus"></i></button><button class="plus"><i class="fa-solid fa-plus"></i></button></div></div>';
-
-    //     html += "</div>";
-    //   });
-    //   html += "</div>";
-    //   $("#google-sheet").html(html);
-    // }
-    // );
-
-    function handleData(response) {
-      const [, ...rest] = response;
-
+    $.getJSON(url, function (json) {
+      let values = json.values, // 所有試算表資料
+        html = "";
+      const [, ...rest] = values;
       console.log(rest);
-      let html = "";
       rest.forEach(function (rows) {
-        let index = rest.indexOf(rows);
-
-        // let index = rows[1];
-        // console.log(rows);
-        // console.log(index);
-        html += '<div class="blessing-food-item" value="' + index + '">';
+        html += '<div class="blessing-food-item">';
         html += '<div class="food-description">';
         html += '<div class="food-name">' + rows[0] + "</div>";
         html += '<div class="food-price">$' + rows[2] + "</div>";
         html += '<div class="food-num">' + rows[1] + "個</div>";
         html += "</div>";
 
-        html += `<div class="scroll-bar"><div class="choose-info" >惜福數量</div><div class="choose-group"><div class="choose-num">0</div><button onclick="updateStatus('${index}' ,'${rows[0]}','${rows[2]}')" class="minus"><i class="fa-solid fa-plus"></i>訂購</i></button></div></div>`;
+        html +=
+          '<div class="scroll-bar"><div class="choose-info">惜福數量</div><div class="choose-group"><div class="choose-num">0</div><button id="" class="minus"><i class="fa-solid fa-minus"></i></button><button class="plus"><i class="fa-solid fa-plus"></i></button></div></div>';
 
-        //       html +=
-        // '<div class="scroll-bar"><div class="choose-info" value="' +
-        // index +
-        // '">惜福數量</div><div class="choose-group"><div class="choose-num">0</div><button onclick="updateStatus(' +
-        // index +
-        // ') id="btni' +
-        // index +
-        // '" class="minus"><i class="fa-solid fa-plus"></i>訂購</i></button></div></div>';
-
-        // <button id="btni' +
-        // index +
-        // '" class="minus"><i class="fa-solid fa-minus" id=></i></button><button class="plus" id="btn-' +
-        // index +
-        // '" ><i class="fa-solid fa-plus"></i></button>
         html += "</div>";
       });
+      html += "</div>";
       $("#google-sheet").html(html);
-      // addOne();
-    }
-
-    function sendQuery() {
-      var data = {
-        action: "query",
-      };
-      $.ajax({
-        type: "post",
-        url: "https://script.google.com/macros/s/AKfycbyC9WD8QrfQCYn4nx85HG2TXRLyaIVsuwWbydr5Kk2jsCQQaZgDuq6Yd2q147rJ5FtfUA/exec",
-        data: data,
-        dataType: "JSON",
-        success: function (response) {
-          console.log(response);
-          handleData(response);
-        },
-      });
-    }
-
-    function updateStatus(
-      // good = "香芋麵包",
-      // price = "10",
-      index,
-      name,
-      price
-    ) {
-      ordernum = 1;
-      console.log(index);
-      index = parseInt(index) + 2;
-      console.log(index);
-      var data = {
-        // good: good,
-        // price: price,
-        action: "delete",
-        index: index,
-        ordernum: ordernum,
-      };
-      // good: "香芋麵包",
-      //     price: "10",
-      //     action: "delete",
-      //     index: 2,
-      //     ordernum: 3,
-      $.ajax({
-        type: "post",
-        url: "https://script.google.com/macros/s/AKfycbyC9WD8QrfQCYn4nx85HG2TXRLyaIVsuwWbydr5Kk2jsCQQaZgDuq6Yd2q147rJ5FtfUA/exec",
-        data: data,
-        dataType: "JSON",
-        success: function (response) {
-          if (response === "success") {
-            console.log("更新成功");
-            msg = `您已成功訂購 :'${name}'一份 價格為 '${price}'元`;
-            console.log(msg);
-          } else {
-            alert("更新失敗！");
-          }
-        },
-      });
-    }
-
-    function sendMsg(msg) {
-      liff
-        .sendMessages([
-          {
-            type: "text",
-            text: msg,
-          },
-        ])
-        .then(function (res) {
-          console.log(res);
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-    }
-
+    });
     liff
       .init({
         liffId: liffID,

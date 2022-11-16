@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script
+      src="https://code.jquery.com/jquery-3.6.1.min.js"
+      integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ="
+      crossorigin="anonymous"
+    ></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+    />
+    <title>test</title>
+  </head>
+  <body>
+    <button onclick="updateStatus()">test</button>
+    <div id="google-sheet"></div>
+  </body>
+  <script>
+    window.onload = function () {
+      sendQuery();
+    };
+    function handleData(response) {
+      const [, ...rest] = response;
+      console.log(rest);
+      let html = "";
+      rest.forEach(function (rows) {
+        let index = rows.index;
+        html += '<div class="blessing-food-item" value="' + index + '">';
+        html += '<div class="food-description">';
+        html += '<div class="food-name">' + rows[0] + "</div>";
+        html += '<div class="food-price">$' + rows[2] + "</div>";
+        html += '<div class="food-num">' + rows[1] + "個</div>";
+        html += "</div>";
+
+        html +=
+          '<div class="scroll-bar"><div class="choose-info">惜福數量</div><div class="choose-group"><div class="choose-num">0</div><button id="btni' +
+          index +
+          '" class="minus"><i class="fa-solid fa-minus" id=></i></button><button class="plus" id="btn-' +
+          index +
+          '" ><i class="fa-solid fa-plus"></i></button></div></div>';
+
+        html += "</div>";
+      });
+      $("#google-sheet").html(html);
+      addOne();
+    }
+    function addOne() {
+      console.log("hello");
+      elements = document.querySelectorAll(".minus");
+      elements.forEach(function (minus) {
+        console.log("ccc");
+        minus.addEventListener("click", function (event) {
+          value =
+            minus.parentNode.getElementsByClassName("choose-num")[0].value;
+          console.log(value);
+          minus.parentNode.getElementsByClassName("choose-num")[0].value =
+            value + 1;
+          console.log("Element clicked through function!");
+        });
+      });
+      // document.
+    }
+    function sendQuery() {
+      var data = {
+        action: "query",
+      };
+      $.ajax({
+        type: "post",
+        url: "https://script.google.com/macros/s/AKfycbyziNPfmV7dvt4eEYkfYhdQr2S-fl1DLwvZ-b-vYKu8nXHQmPCsYv2MqprwUFfwbbOy1A/exec",
+        data: data,
+        dataType: "JSON",
+        success: function (response) {
+          console.log(response);
+          handleData(response);
+        },
+      });
+    }
+
+    function updateStatus(
+      good = "香芋麵包",
+      price = "10",
+      index = "2",
+      ordernum = 3
+    ) {
+      var data = {
+        good: good,
+        price: price,
+        action: "delete",
+        index: index,
+        ordernum: 3,
+      };
+      // good: "香芋麵包",
+      //     price: "10",
+      //     action: "delete",
+      //     index: 2,
+      //     ordernum: 3,
+      $.ajax({
+        type: "post",
+        url: "https://script.google.com/macros/s/AKfycbyziNPfmV7dvt4eEYkfYhdQr2S-fl1DLwvZ-b-vYKu8nXHQmPCsYv2MqprwUFfwbbOy1A/exec",
+        data: data,
+        dataType: "JSON",
+        success: function (response) {
+          if (response === "success") {
+            alert("更新成功");
+            console.log("更新成功");
+            // $(that).parent().siblings(".status").text(convertStatus(0));
+            // $(that).remove();
+          } else {
+            alert("更新失敗！");
+          }
+        },
+      });
+    }
+  </script>
+</html>
