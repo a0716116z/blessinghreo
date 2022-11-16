@@ -233,7 +233,9 @@
     }
 
     function sendMsg(msg) {
-      data = liff.getProfile().then((profile) => profile);
+      data = liff.getProfile().then((profile) => {
+        return JSON.stringify(profile);
+      });
       console.log(data);
 
       msg = data.displayName + msg + "";
