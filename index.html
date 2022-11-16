@@ -233,9 +233,10 @@
     }
 
     function sendMsg(msg) {
-      console.log(liff.getProfile().displayName);
+      data = liff.getProfile().then((profile) => profile);
+      console.log(data);
 
-      msg = liff.getProfile().displayName + msg + "";
+      msg = data.displayName + msg + "";
       liff
         .sendMessages([
           {
