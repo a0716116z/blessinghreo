@@ -224,7 +224,7 @@
             console.log("更新成功");
             msg = `您已成功訂購 :'${name}'一份 價格為 '${price}'元`;
             alert(msg);
-            sendMsg(msg);
+            sendMsg(msg, name, price, 1);
             sendQuery();
           } else {
             alert("更新失敗！");
@@ -233,21 +233,121 @@
       });
     }
 
-    async function sendMsg(msg) {
+    async function sendMsg(msg, foodname, foodprice, ordernum) {
       // data = liff.getProfile().then((profile) => {
       //   return JSON.stringify(profile);
       // });
       // console.log(data);
       const profile = await liff.getProfile();
       const name = profile.displayName;
+      testform = {
+        type: "bubble",
+        hero: {
+          type: "image",
+          url: "https://raw.githubusercontent.com/a0716116z/blessinghreo/bc07143188ec7cc4578f78c0c16fbc686f9bbd0e/hero.jpg",
+          size: "full",
+          aspectRatio: "20:13",
+          aspectMode: "cover",
+          action: {
+            type: "uri",
+            uri: "https://www.facebook.com/stagebakery/",
+          },
+        },
+        body: {
+          type: "box",
+          layout: "vertical",
+          contents: [
+            {
+              type: "text",
+              text: name + "訂購成功",
+              weight: "bold",
+              size: "xl",
+            },
+            {
+              type: "box",
+              layout: "vertical",
+              margin: "lg",
+              spacing: "sm",
+              contents: [
+                {
+                  type: "box",
+                  layout: "baseline",
+                  spacing: "sm",
+                  contents: [
+                    {
+                      type: "text",
+                      text: "訂購品項",
+                      color: "#aaaaaa",
+                      size: "sm",
+                      flex: 2,
+                    },
+                    {
+                      type: "text",
+                      text: foodname,
+                      wrap: true,
+                      color: "#666666",
+                      size: "sm",
+                      flex: 5,
+                    },
+                  ],
+                },
+                {
+                  type: "box",
+                  layout: "baseline",
+                  spacing: "sm",
+                  contents: [
+                    {
+                      type: "text",
+                      text: "份數",
+                      color: "#cccccc",
+                      size: "sm",
+                      flex: 2,
+                    },
+                    {
+                      type: "text",
+                      text: "1份",
+                      wrap: true,
+                      color: "#666666",
+                      size: "sm",
+                      flex: 5,
+                    },
+                  ],
+                },
+                {
+                  type: "box",
+                  layout: "baseline",
+                  contents: [
+                    {
+                      type: "text",
+                      text: "價格",
+                      flex: 2,
+                      color: "#cccccc",
+                      size: "sm",
+                    },
+                    {
+                      type: "text",
+                      text: "NT$" + foodprice,
+                      flex: 5,
+                      size: "sm",
+                      color: "#dd2277",
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+        },
+      };
+
       console.log(name);
       msg = name + msg + "";
       liff
         .sendMessages([
-          {
-            type: "text",
-            text: msg,
-          },
+          testform,
+          // {
+          //   type: "text",
+          //   text: msg,
+          // },
         ])
         .then(function (res) {
           console.log(res);
