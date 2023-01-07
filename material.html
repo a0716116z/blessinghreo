@@ -48,7 +48,7 @@
         <i class="fa-solid fa-bread-slice"></i>
       </div>
       <div class="shop-info-bar">
-        <div class="shop-name">小舞台烘焙</div>
+        <div class="shop-name">上統食品股份有限公司</div>
         <div class="shop-info">店家資訊</div>
         <div class="rank">
           <i class="fa-solid fa-star"></i>
@@ -56,7 +56,7 @@
           <i class="fa-solid fa-star"></i>
           <i class="fa-solid fa-star"></i>
           <i class="fa-regular fa-star"></i>
-          <div class="rank-info">4.8(112)</div>
+          <div class="rank-info">4.8(101)</div>
         </div>
       </div>
     </div>
@@ -188,11 +188,11 @@
     function sendQuery() {
       var data = {
         action: "query",
-        table: "crud",
+        table: "material",
       };
       $.ajax({
         type: "post",
-        url: "https://script.google.com/macros/s/AKfycbyC9WD8QrfQCYn4nx85HG2TXRLyaIVsuwWbydr5Kk2jsCQQaZgDuq6Yd2q147rJ5FtfUA/exec",
+        url: "https://script.google.com/macros/s/AKfycbytxdguKKicOz2Fmg6OoIfcgYBN5oZeNLW8bctNokgiAQQ3YjWWn7k7LOx_f4VCqmqE/exec",
         data: data,
         dataType: "JSON",
         success: function (response) {
@@ -217,9 +217,9 @@
         // good: good,
         // price: price,
         action: "delete",
+        table: "material",
         index: index,
         ordernum: ordernum,
-        table: "crud",
       };
       // good: "香芋麵包",
       //     price: "10",
@@ -229,7 +229,7 @@
       // url: "https://script.google.com/macros/s/AKfycbyC9WD8QrfQCYn4nx85HG2TXRLyaIVsuwWbydr5Kk2jsCQQaZgDuq6Yd2q147rJ5FtfUA/exec",
       $.ajax({
         type: "post",
-        url: "https://script.google.com/macros/s/AKfycbyWRmW9Rytpa7H7wn0zZ6IjLu2YA814FnJN8zGvZeHHV3alULGsrW7K96JhXnw5vkjv6g/exec",
+        url: "https://script.google.com/macros/s/AKfycbytxdguKKicOz2Fmg6OoIfcgYBN5oZeNLW8bctNokgiAQQ3YjWWn7k7LOx_f4VCqmqE/exec",
         data: data,
         dataType: "JSON",
         success: function (response) {
@@ -238,6 +238,7 @@
             msg = `您已成功訂購 :'${name}'一份 價格為 '${price}'元`;
             // alert(msg);
             showalert(msg);
+
             sendMsg(msg, name, price, 1);
             sendQuery();
           } else {
@@ -279,7 +280,8 @@
         console.log("LIFF init");
         if (!liff.isLoggedIn()) {
           liff.login({
-            redirectUri: "https://a0716116z.github.io/blessinghreo/index.html",
+            redirectUri:
+              "https://a0716116z.github.io/blessinghreo/material.html",
           });
         } else {
           liff.getProfile().then((profile) => {

@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link rel="stylesheet" href="./main.css" />
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>惜福超人</title>
+    <link rel="shortcut icon" href="" />
+    <script
+      src="https://code.jquery.com/jquery-3.6.1.min.js"
+      integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ="
+      crossorigin="anonymous"
+    ></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
+      integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"
+      integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V"
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+  </head>
+  <body>
+    <div id="alert"></div>
+    <iframe name="dummyframe" id="dummyframe" style="display: none"></iframe>
+    <div class="title">
+      <div class="title-name">惜福超人店家後台</div>
+      <div class="menu">
+        <div class="menuitem">
+          <div class="icon">
+            <i class="fa-solid fa-gifts"></i>
+          </div>
+          <div class="menu-title">怎取餐</div>
+        </div>
+        <div class="menuitem">
+          <div class="icon">
+            <i class="fa-solid fa-magnifying-glass"></i>
+          </div>
+          <div class="menu-title">找商品</div>
+        </div>
+        <div class="menuitem">
+          <div class="icon">
+            <i class="fa-solid fa-bag-shopping"></i>
+          </div>
+          <div class="menu-title">購物車</div>
+        </div>
+      </div>
+    </div>
+    <div class="shop-card">
+      <div class="shop-icon">
+        <i class="fa-solid fa-bread-slice"></i>
+      </div>
+      <div class="shop-info-bar">
+        <div class="shop-name">小舞台烘焙</div>
+        <div class="shop-info">店家資訊</div>
+        <div class="rank">
+          <i class="fa-solid fa-star"></i>
+          <i class="fa-solid fa-star"></i>
+          <i class="fa-solid fa-star"></i>
+          <i class="fa-solid fa-star"></i>
+          <i class="fa-regular fa-star"></i>
+          <div class="rank-info">4.8(112)</div>
+        </div>
+      </div>
+    </div>
+    <div class="store-upload">
+      <div class="upload-text">即期商品請上架</div>
+      <div
+        data-bs-toggle="modal"
+        data-bs-target="#exampleModal"
+        class="add-item"
+      >
+        *新增品項
+      </div>
+    </div>
+
+    <!-- Modal -->
+    <div
+      class="modal fade"
+      id="exampleModal"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">新增品項</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <form target="dummyframe">
+            <div class="modal-body">
+              <div class="line">
+                <label for="good-create">品項名稱</label>
+                <input
+                  required
+                  type="text"
+                  id="good-create"
+                  name="good"
+                  placeholder="小圓麵包"
+                />
+              </div>
+              <div class="line">
+                <label for="good-price">品項單價</label>
+                <input
+                  required
+                  type="number"
+                  id="good-price"
+                  name="price"
+                  placeholder="數字"
+                />
+              </div>
+              <input class="hidden" type="number" name="quantity" value="0" />
+            </div>
+            <div class="modal-footer">
+              <button class="close" data-bs-dismiss="modal">關閉</button>
+              <button
+                class="submit"
+                data-bs-dismiss="modal"
+                onclick="send_get();"
+              >
+                提交
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div id="google-sheet">
+      <div class="blessing-food-item" value="0">
+        <div class="food-description">
+          <div class="food-name">香芋麵包</div>
+          <div class="food-price">$10</div>
+          <!-- <div class="food-num">剩餘82個</div> -->
+        </div>
+        <div class="scroll-bar">
+          <div class="choose-info">新增數量</div>
+          <div class="choose-group">
+            <div class="choose-num">80</div>
+            <button onclick="" class="plus">
+              <i class="fa-solid fa-plus"></i>
+            </button>
+            <button onclick="" class="minus">
+              <i class="fa-solid fa-minus"></i>
+            </button>
+            <button onclick="" class="update">
+              <!-- <i class="fa-solid fa-rotate-right"></i> -->
+              更新
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script>
+    function showalert(message) {
+      $("#alert").append(
+        '<div id="alertdiv" class="alerts"><span>' + message + "</span></div>"
+      );
+
+      setTimeout(function () {
+        $("#alertdiv").remove();
+      }, 4000);
+    }
+    function send_get() {
+      let data = {
+        price: document.getElementById("good-price").value,
+        good: document.getElementById("good-create").value,
+        quantity: 0,
+      };
+      price = document.getElementById("good-price").value;
+      good = document.getElementById("good-create").value;
+      console.log(data);
+      $.ajax({
+        type: "get",
+        url: "https://script.google.com/macros/s/AKfycbyMoxyPaD01FgfMMuMyA1C9LiDIoErFDfYDNdoMsfRFFIGLkGGDpfxHRXvtLFBRCv9vGQ/exec",
+        data: data,
+        dataType: "JSON",
+        success: function (response) {
+          console.log(response);
+          // alert(`已新增品項 : ${good} |售價 ${price}元`);
+          showalert(`已新增品項 : ${good} |售價 ${price}元`);
+          sendQuery();
+        },
+      });
+    }
+    window.onload = function () {
+      sendQuery();
+    };
+    function set_event() {
+      btns_plus = document.querySelectorAll(".plus");
+      btns_plus.forEach((btn_plus) =>
+        btn_plus.addEventListener("click", function () {
+          console.log("add");
+          change_value(this.parentNode, 1);
+        })
+      );
+      btns_minus = document.querySelectorAll(".minus");
+      btns_minus.forEach((btn_minus) =>
+        btn_minus.addEventListener("click", function () {
+          console.log("minus");
+          // console.log(this.parentNode.parentNode.parentNode);
+          change_value(this.parentNode, -1);
+        })
+      );
+      btns_update = document.querySelectorAll(".update");
+      btns_update.forEach((btns_update) =>
+        btns_update.addEventListener("click", function () {
+          console.log("update");
+          updateStatus(
+            this.parentNode.parentNode.parentNode.getAttribute("value"),
+            this.parentNode.parentNode.parentNode.getElementsByClassName(
+              "food-name"
+            )[0].innerText,
+            this.parentNode.parentNode.parentNode.getElementsByClassName(
+              "food-price"
+            )[0].innerText,
+            this.parentNode.getElementsByClassName("choose-num")[0].innerText
+          );
+          // change_value(this.parentNode.parentNode.parentNode);
+        })
+      );
+    }
+
+    function change_value(node, value) {
+      value_original = node.getElementsByClassName("choose-num")[0].innerText;
+      console.log(value_original);
+      node.getElementsByClassName("choose-num")[0].innerText =
+        parseInt(value_original) + value;
+    }
+    const liffID = "1657649804-Jb10W9yA";
+    let spreadsheet_id = "1VTxk0-JwB0-IhBxptYZAJzmyLoFkldS6aRkzwWl6EG8",
+      tab_name = "store", // 填入工作表名稱
+      api_key = "AIzaSyA7yPxnllRcUxcMrfAfIFvYFamYw7Y3iUQ", // 填入 API 金鑰
+      url =
+        "https://sheets.googleapis.com/v4/spreadsheets/" +
+        spreadsheet_id +
+        "/values/" +
+        tab_name +
+        "?key=" +
+        api_key;
+    // $.getJSON(url, function (json) {
+    //   let values = json.values, // 所有試算表資料
+    //     html = "";
+    //   const [, ...rest] = values;
+    //   console.log(rest);
+    //   rest.forEach(function (rows) {
+    //     html += '<div class="blessing-food-item">';
+    //     html += '<div class="food-description">';
+    //     html += '<div class="food-name">' + rows[0] + "</div>";
+    //     html += '<div class="food-price">$' + rows[2] + "</div>";
+    //     html += '<div class="food-num">' + rows[1] + "個</div>";
+    //     html += "</div>";
+
+    //     html +=
+    //       '<div class="scroll-bar"><div class="choose-info">惜福數量</div><div class="choose-group"><div class="choose-num">0</div><button class="minus"><i class="fa-solid fa-minus"></i></button><button class="plus"><i class="fa-solid fa-plus"></i></button></div></div>';
+
+    //     html += "</div>";
+    //   });
+    //   html += "</div>";
+    //   $("#google-sheet").html(html);
+    // }
+    // );
+
+    function handleData(response) {
+      const [, ...rest] = response;
+
+      console.log(rest);
+      let html = "";
+      rest.forEach(function (rows) {
+        let index = rest.indexOf(rows);
+        html += '<div class="blessing-food-item" value="' + index + '">';
+        html += '<div class="food-description">';
+        html += '<div class="food-name">' + rows[0] + "</div>";
+        html += '<div class="food-price">$' + rows[2] + "</div>";
+        // html += '<div class="food-num">剩餘' + rows[1] + "個</div>";
+        html += "</div>";
+
+        html += `<div class="scroll-bar"><div class="choose-info" >新增數量</div><div class="choose-group"><div class="choose-num">${rows[1]}</div><button class="plus"><i class="fa-solid fa-plus"></i></button>   <button class="minus"><i class="fa-solid fa-minus"></i></button>     <button onclick="" class="update">更新</button></div></div>`;
+        html += "</div>";
+      });
+      $("#google-sheet").html(html);
+      set_event();
+      // addOne();
+    }
+
+    function sendQuery() {
+      var data = {
+        action: "query",
+        table: "crud",
+      };
+      $.ajax({
+        type: "post",
+        url: "https://script.google.com/macros/s/AKfycbyC9WD8QrfQCYn4nx85HG2TXRLyaIVsuwWbydr5Kk2jsCQQaZgDuq6Yd2q147rJ5FtfUA/exec",
+        data: data,
+        dataType: "JSON",
+        success: function (response) {
+          console.log(response);
+          handleData(response);
+        },
+      });
+    }
+
+    // function updateStatus(index, name, price) {
+    //   ordernum = 1;
+    //   console.log(index);
+    //   index = parseInt(index) + 2;
+    //   console.log(index);
+    //   var data = {
+    //     action: "delete",
+    //     index: index,
+    //     ordernum: ordernum,
+    //   };
+    //   $.ajax({
+    //     type: "post",
+    //     url: "https://script.google.com/macros/s/AKfycbyC9WD8QrfQCYn4nx85HG2TXRLyaIVsuwWbydr5Kk2jsCQQaZgDuq6Yd2q147rJ5FtfUA/exec",
+    //     data: data,
+    //     dataType: "JSON",
+    //     success: function (response) {
+    //       if (response === "success") {
+    //         console.log("更新成功");
+    //         msg = `您已成功訂購 :'${name}'一份 價格為 '${price}'元`;
+    //         alert(msg);
+    //         // sendMsg(msg, name, price, 1);
+    //         // sendQuery();
+    //       } else {
+    //         alert("更新失敗！");
+    //       }
+    //     },
+    //   });
+    // }
+    function updateStatus(index, name, price, ordernum) {
+      console.log(index);
+      index = parseInt(index) + 2;
+      console.log(index);
+      console.log(ordernum);
+      var data = {
+        table: "crud",
+        action: "update",
+        index: index,
+        ordernum: ordernum,
+      };
+      $.ajax({
+        type: "post",
+        url: "https://script.google.com/macros/s/AKfycbyCiNsdPNrbXL75GfywQswukpQlEg4Stor9WzZEpqy1xbgK_52aDxT4SypUYsvrAs30hg/exec",
+        data: data,
+        dataType: "JSON",
+        success: function (response) {
+          console.log(response);
+          if (response === "success") {
+            console.log("更新成功");
+            showalert(`更新成功`);
+            // msg = `您已成功訂購 :'${name}'一份 價格為 '${price}'元`;
+            // alert(msg);
+            // sendMsg(msg, name, price, 1);
+            sendQuery();
+          } else {
+            alert("更新失敗！");
+          }
+        },
+      });
+    }
+
+    async function sendMsg(msg, foodname, foodprice, ordernum) {
+      // data = liff.getProfile().then((profile) => {
+      //   return JSON.stringify(profile);
+      // });
+      // console.log(data);
+      const profile = await liff.getProfile();
+      const name = profile.displayName;
+
+      msg = name + msg + "";
+      liff
+        .sendMessages([
+          {
+            type: "text",
+            text: msg,
+          },
+        ])
+        .then(function (res) {
+          console.log(res);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    }
+
+    liff
+      .init({
+        liffId: liffID,
+      })
+      .then(function () {
+        console.log("LIFF init");
+        if (!liff.isLoggedIn()) {
+          liff.login({
+            redirectUri: "https://a0716116z.github.io/blessinghreo/store.html",
+          });
+        } else {
+          liff.getProfile().then((profile) => {
+            console.log(profile);
+          });
+        }
+        function getProfile() {
+          // 先確認使用者是登入狀態
+          if (isLoggedIn) {
+            return liff.getProfile().then((profile) => profile);
+          }
+        }
+        // 這邊開始寫使用其他功能
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  </script>
+</html>
